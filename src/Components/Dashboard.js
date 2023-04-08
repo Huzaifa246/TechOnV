@@ -9,8 +9,17 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import LineChart from './LineChart';
 
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-cards";
+import { EffectCards } from "swiper";
+
+import {
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+} from "recharts";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -19,8 +28,22 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
 }));
-
 export default function Dashboard() {
+
+    const data = [
+        { name: "Jan", uv: 4000, pv: 2400 },
+        { name: "Feb", uv: 3000, pv: 1398 },
+        { name: "Mar", uv: 2000, pv: 9800 },
+        { name: "Apr", uv: 2780, pv: 3908 },
+        { name: "May", uv: 1890, pv: 4800 },
+        { name: "Jun", uv: 2390, pv: 3800 },
+        { name: "Jul", uv: 3490, pv: 4300 },
+        { name: "Aug", uv: 4000, pv: 2400 },
+        { name: "Sep", uv: 3000, pv: 1398 },
+        { name: "Oct", uv: 2000, pv: 9800 },
+        { name: "Nov", uv: 2780, pv: 3908 },
+        { name: "Dec", uv: 1890, pv: 4800 }
+    ];
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
@@ -175,15 +198,56 @@ export default function Dashboard() {
             </Box>
             <br />
             <Grid container spacing={2}>
-                <Grid item xs={4}>
-                    <Item>Swiper COMING SOON</Item>
-                </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={12} md={4}>
                     <Item>
-                        LineChart Coming SOON!!!
+                        <Typography sx={{ fontSize: 24 }} color="text.secondary" gutterBottom>
+                            My Cards
+                        </Typography>
+                        <hr />
+
+                        <Swiper
+                            effect={"cards"}
+                            grabCursor={true}
+                            modules={[EffectCards]}
+                            className="mySwiper"
+                        >
+                            <SwiperSlide>
+                                <img src="https://images.unsplash.com/photo-1613243555988-441166d4d6fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y3JlZGl0JTIwY2FyZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60" />
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+                            </SwiperSlide>
+                        </Swiper>
+                    </Item>
+                </Grid>
+                <Grid item xs={12} md={8}>
+                    <Item>
+                        <Typography sx={{ fontSize: 24 }} color="text.secondary" gutterBottom>
+                            Transaction Trending
+                        </Typography>
+                        <hr />
+                        <ResponsiveContainer width="100%" height={300}>
+                            <LineChart width={1100} height={300} data={data}>
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <Tooltip />
+                                <Legend />
+                                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                            </LineChart>
+                        </ResponsiveContainer >
                     </Item>
                 </Grid>
             </Grid>
+
+
         </>
     );
 }
