@@ -20,17 +20,23 @@ function LineChartGraph() {
     ];
     return (
         <>
-            <ResponsiveContainer width="100%" height={300}>
-                <LineChart width={1100} height={300} data={data}>
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-                    <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-                </LineChart>
-            </ResponsiveContainer >
+            <div className="chart-container">
+                <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={data}>
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} style={{
+                            dropShadow: '0px 2px 8px rgba(0, 0, 0, 0.3)',
+                            shadowColor: '0px 2px 8px rgba(255, 0, 0, 0.3)',
+                            textShadow: '0px 2px 8px rgba(0, 255, 0, 0.3)',
+                        }} />
+                        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                    </LineChart>
+                </ResponsiveContainer>
+            </div>
         </>
     )
 }
